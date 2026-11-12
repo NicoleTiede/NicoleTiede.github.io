@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Editoren
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Werkzeuge und lokale Einstellungen
+node_modules/
+.env
+.env.*
+*.log
+
+# Jekyll, falls die Seite später damit gebaut wird
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Lokales Material, das nie ins Repository gehört:
+# Originalfotos (können Standortdaten enthalten), Entwürfe, Vorschaubilder
+/FotosUndGrafiken/
+/originale/
+/vorschau/
+*.heic
+*.psd

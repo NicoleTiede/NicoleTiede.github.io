@@ -1,0 +1,7 @@
+# Textdateien einheitlich mit LF-Zeilenenden, Bilder unverändert
+* text=auto eol=lf
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.ico binary
