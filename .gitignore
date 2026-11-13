@@ -16,6 +16,7 @@ Desktop.ini
 *~
 
 # Werkzeuge und lokale Einstellungen
+.claude/
 node_modules/
 .env
 .env.*
