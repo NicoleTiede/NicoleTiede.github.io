@@ -703,6 +703,19 @@ h2 sup {
   color: var(--accent-ink);
 }
 
+/* Nicoles eigene Worte */
+.quote {
+  margin: 24px 0 0;
+  padding-left: 22px;
+  border-left: 2px solid var(--accent);
+}
+
+.about__text .quote p {
+  color: var(--ink);
+  font-size: 1.12rem;
+  line-height: 1.6;
+}
+
 .quals {
   margin-top: 30px;
   padding-top: 26px;
