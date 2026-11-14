@@ -990,6 +990,14 @@ address a:hover {
   text-underline-offset: 4px;
 }
 
+/* Versionszeile: Nummer und Zeit werden in docs/index.html von Hand gepflegt */
+.site-footer .version {
+  margin-top: 24px;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
 /* ---------- Rechtstexte ---------- */
 
 .legal {

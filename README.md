@@ -43,6 +43,16 @@ Danach <http://localhost:8000> im Browser öffnen.
 - Farben für hell und dunkel: Variablen am Anfang von `docs/assets/css/style.css`
 - Bilder: `docs/assets/img/`. Vor dem Hochladen Standortdaten entfernen und auf höchstens 1200 px Breite verkleinern.
 
+## Version
+
+In der Fußzeile der Startseite steht eine Versionszeile, zum Beispiel „Version 0.6 · Stand 14.11.2026, 19:00 Uhr“.
+Daran lässt sich auf einen Blick erkennen, ob eine Änderung schon online ist.
+
+Die Zeile wird von Hand gepflegt, ganz unten in `docs/index.html`. Bei jeder Änderung der Seite:
+
+- Nummer um eins hochzählen (0.6 → 0.7). Bis zum offiziellen Start bleibt die Null vorn, der Start ist Version 1.0.
+- Datum und Uhrzeit der Änderung eintragen, sichtbar und im Attribut `datetime`.
+
 ## Rechte
 
 Texte und Fotos gehören Nicole Tiede und stehen unter keiner freien Lizenz.
