@@ -239,15 +239,30 @@ h2 sup {
   display: block;
 }
 
-/* ---------- Buttons ---------- */
+/* ---------- Links im Fließtext: unterstrichen, in voller Textfarbe ---------- */
+
+p a:not(.btn),
+address a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+p a:not(.btn):hover,
+address a:hover {
+  color: var(--accent-ink);
+}
+
+/* ---------- Buttons: die Pillenform steht nur für Aktionen ---------- */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   min-height: 52px;
-  padding: 12px 28px;
+  padding: 12px 24px;
   border: 2px solid var(--ink);
   border-radius: 999px;
   font-weight: 600;
@@ -279,6 +294,13 @@ h2 sup {
   min-height: 40px;
   padding: 6px 14px;
   font-size: 0.78rem;
+}
+
+/* Emoji im Button zeigt, was passiert: Mail, Anmeldung, Karte */
+.btn__ico {
+  font-size: 1.15em;
+  line-height: 1;
+  letter-spacing: 0;
 }
 
 /* ---------- Hero ---------- */
@@ -337,11 +359,20 @@ h2 sup {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: var(--accent-ink);
+  color: var(--muted);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+/* kurzer Akzentstrich vor der Dachzeile – reine Zierde, kein Link */
+.eyebrow::before {
+  content: "";
+  flex: none;
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
 }
 
 .hero h1 {
@@ -464,24 +495,29 @@ h2 sup {
 }
 
 .course {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 28px;
   border: 2px solid var(--ink);
   border-radius: var(--radius);
   background: var(--card-bg);
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
-.course__tag {
-  align-self: flex-start;
-  padding: 3px 12px;
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  font-size: 0.75rem;
+/* Die ganze Karte führt zur Anmeldung; sichtbares Ziel ist der Button darin */
+.course:hover,
+.course:focus-within {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.course__label {
+  color: var(--muted);
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent-ink);
 }
 
 .course__day {
@@ -531,6 +567,18 @@ h2 sup {
   text-transform: uppercase;
 }
 
+.course__action {
+  align-self: flex-start;
+  margin-top: 22px;
+}
+
+.course__action::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+
 /* Kids-Karte: in beiden Darstellungen blau mit weißer Schrift */
 .course--kids {
   background: var(--accent);
@@ -538,7 +586,12 @@ h2 sup {
   color: #fff;
 }
 
-.course--kids .course__tag,
+.course--kids:hover,
+.course--kids:focus-within {
+  border-color: #fff;
+}
+
+.course--kids .course__label,
 .course--kids .course__meta,
 .course--kids .course__per {
   color: #fff;
@@ -569,7 +622,7 @@ h2 sup {
 
 .terms span {
   display: block;
-  color: var(--accent-ink);
+  color: var(--muted);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -620,8 +673,15 @@ h2 sup {
 }
 
 .points li {
-  padding-left: 22px;
-  border-left: 2px solid var(--accent);
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  column-gap: 14px;
+  align-items: start;
+}
+
+.points .ico {
+  font-size: 1.75rem;
+  line-height: 1.15;
 }
 
 .points h3 {
@@ -646,6 +706,14 @@ h2 sup {
   color: #fff;
 }
 
+.kids .eyebrow::before {
+  background: #fff;
+}
+
+.kids p a:not(.btn) {
+  color: #fff;
+}
+
 .kids h2 .outline {
   display: block;
   margin-top: 0.08em;
@@ -656,29 +724,37 @@ h2 sup {
   max-width: 38em;
 }
 
-.kids__facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+/* Eckdaten als schlichte Liste mit Emoji – bewusst keine Pillen, die sind Buttons vorbehalten */
+.icon-list {
+  display: grid;
+  gap: 10px 36px;
+  max-width: 50rem;
   margin: 24px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.kids__facts li {
-  padding: 6px 16px;
-  border: 1.5px solid #fff;
-  border-radius: 999px;
-  font-size: 0.92rem;
+.icon-list li {
+  display: grid;
+  grid-template-columns: 1.7rem 1fr;
+  column-gap: 10px;
+  align-items: baseline;
 }
 
-.kids .btn--solid {
+.icon-list .ico {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.kids .btn--solid,
+.course--kids .btn--solid {
   background: #fff;
   border-color: #fff;
   color: #0b0b12;
 }
 
-.kids .btn--solid:hover {
+.kids .btn--solid:hover,
+.course--kids .btn--solid:hover {
   background: #0b0b12;
   border-color: #0b0b12;
   color: #fff;
@@ -697,10 +773,6 @@ h2 sup {
 .about__text p strong {
   color: var(--ink);
   font-weight: 600;
-}
-
-.about__text .eyebrow {
-  color: var(--accent-ink);
 }
 
 /* Nicoles eigene Worte */
@@ -729,28 +801,33 @@ h2 sup {
 
 .about__text .quals__label {
   margin-top: 18px;
-  color: var(--accent-ink);
+  color: var(--muted);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+/* Abschlüsse als Häkchenliste */
+.checks {
+  display: grid;
+  gap: 4px;
   margin: 8px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.badges li {
-  padding: 6px 16px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  font-size: 0.9rem;
+.checks li {
+  position: relative;
+  padding-left: 1.6em;
+}
+
+.checks li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--accent-ink);
+  font-weight: 600;
 }
 
 .textlink {
@@ -822,7 +899,7 @@ h2 sup {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--accent-ink);
+  color: var(--muted);
 }
 
 .card address {
@@ -952,9 +1029,9 @@ h2 sup {
   padding-left: 1.2em;
 }
 
-/* ---------- große Handys quer: Porträt nicht über die volle Breite aufziehen ---------- */
+/* ---------- große Handys hochkant, kleine Tablets: Porträt nicht über die volle Breite aufziehen ---------- */
 
-@media (min-width: 480px) and (max-width: 759px) {
+@media (min-width: 480px) and (max-width: 759px) and (min-height: 521px) {
   .hero__media {
     width: 440px;
     max-width: 100%;
@@ -980,11 +1057,15 @@ h2 sup {
   }
 }
 
-/* ---------- ab Tablet ---------- */
+/* ---------- ab Tablet; gilt auch für Handys im Querformat (breit, aber niedrig) ---------- */
 
-@media (min-width: 720px) {
+@media (min-width: 720px), (orientation: landscape) and (min-width: 560px) and (max-height: 520px) {
   :root {
     --gutter: 32px;
+  }
+
+  .icon-list {
+    grid-template-columns: 1fr 1fr;
   }
 
   .brand {
@@ -1042,11 +1123,11 @@ h2 sup {
   }
 }
 
-/* ---------- Tablet und Desktop: Porträt rechts neben dem Text ---------- */
+/* ---------- Tablet, Desktop und Handy-Querformat: Porträt rechts neben dem Text ---------- */
 
-@media (min-width: 760px) {
+@media (min-width: 760px), (orientation: landscape) and (min-width: 560px) and (max-height: 520px) {
   .hero__inner {
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1.15fr 0.85fr;
     align-items: center;
     gap: 24px;
     min-height: min(88vh, 800px);
@@ -1106,12 +1187,204 @@ h2 sup {
   }
 }
 
+/* ---------- Handy im Querformat: wenig Höhe, deshalb alles kompakter ----------
+   Ziel: Überschrift, Buttons und Porträt passen auf den ersten Bildschirm. */
+
+@media (orientation: landscape) and (min-width: 560px) and (max-height: 520px) {
+  :root {
+    --gutter: 24px;
+  }
+
+  html {
+    scroll-padding-top: 60px;
+  }
+
+  .site-header .wrap {
+    min-height: 48px;
+    gap: 10px;
+  }
+
+  .brand {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .nav {
+    gap: 16px;
+    font-size: 0.85rem;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .theme-toggle {
+    width: 34px;
+    height: 34px;
+  }
+
+  .btn--small {
+    min-height: 34px;
+    padding: 4px 14px;
+    font-size: 0.74rem;
+  }
+
+  /* Hero: Buttons rücken direkt unter die Überschrift, der Rest folgt darunter */
+  .hero__inner,
+  :root[data-theme="dark"] .hero__inner {
+    grid-template-columns: 1.25fr 0.75fr;
+    align-items: start;
+    gap: 16px;
+    min-height: 0;
+  }
+
+  .hero__text,
+  :root[data-theme="dark"] .hero__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 0 36px;
+  }
+
+  .hero__text > * {
+    order: 5;
+  }
+
+  .hero__text .eyebrow {
+    order: 1;
+  }
+
+  .hero__text h1 {
+    order: 2;
+    margin-top: 8px;
+  }
+
+  .hero__text .tagline {
+    order: 3;
+    margin-top: 10px;
+    font-size: 1.15rem;
+  }
+
+  .hero__text .cta {
+    order: 4;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .hero h1 .solid {
+    font-size: clamp(2.8rem, 15vh, 3.6rem);
+  }
+
+  .hero h1 .outline {
+    font-size: clamp(1.35rem, 7.2vh, 1.75rem);
+    -webkit-text-stroke-width: 1px;
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+
+  .hero .btn {
+    min-height: 42px;
+    padding: 8px 18px;
+    font-size: 0.78rem;
+  }
+
+  .hero .lead {
+    margin-top: 20px;
+  }
+
+  /* Porträt oben anschlagen, damit das Gesicht ohne Scrollen zu sehen ist */
+  .hero__media,
+  :root[data-theme="dark"] .hero__media {
+    align-self: start;
+    min-height: 0;
+    margin: 0 calc(var(--gutter) * -1) 0 -10%;
+  }
+
+  .hero__media .theme-light {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 74%, transparent 100%),
+      linear-gradient(to right, transparent 0, #000 16%, #000 90%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 74%, transparent 100%),
+      linear-gradient(to right, transparent 0, #000 16%, #000 90%, transparent 100%);
+    mask-composite: intersect;
+  }
+
+  :root[data-theme="dark"] .hero__media {
+    height: calc(100vh - 48px);
+    max-height: 420px;
+  }
+
+  .hero__media .theme-dark {
+    object-position: 50% 6%;
+  }
+
+  .section {
+    padding: 44px 0;
+  }
+
+  .section h2 {
+    margin-top: 8px;
+    font-size: 2.1rem;
+  }
+
+  .section h2 .outline {
+    -webkit-text-stroke-width: 1.2px;
+  }
+
+  .courses {
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .course {
+    padding: 18px;
+  }
+
+  .course__time {
+    font-size: 1.45rem;
+  }
+
+  .course__action {
+    align-self: stretch;
+  }
+
+  .steps {
+    gap: 24px;
+  }
+
+  .split {
+    gap: 32px;
+    align-items: start;
+  }
+
+  .points {
+    margin-top: 20px;
+    gap: 16px;
+  }
+}
+
+/* sehr schmale Querformate: für die Menüpunkte reicht der Platz nicht */
+@media (orientation: landscape) and (max-height: 520px) and (max-width: 619px) {
+  .nav {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  .btn {
+  .btn,
+  .course {
     transition: none;
+  }
+
+  .course:hover,
+  .course:focus-within {
+    transform: none;
   }
 }
