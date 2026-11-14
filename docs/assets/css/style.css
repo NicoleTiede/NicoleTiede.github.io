@@ -296,7 +296,7 @@ address a:hover {
   font-size: 0.78rem;
 }
 
-/* Emoji im Button zeigt, was passiert: Mail, Anmeldung, Karte */
+/* Textpfeil im Button, z. B. „Kurse ansehen ↓“ – Buttons tragen keine Emojis */
 .btn__ico {
   font-size: 1.15em;
   line-height: 1;
@@ -674,14 +674,21 @@ address a:hover {
 
 .points li {
   display: grid;
-  grid-template-columns: 2.4rem 1fr;
-  column-gap: 14px;
-  align-items: start;
+  grid-template-columns: 1.6rem 1fr;
+  column-gap: 12px;
+  align-items: baseline;
+}
+
+/* Emojis nur als kleine, zurückgenommene Listenzeichen – nicht in Buttons oder Überschriften */
+.points .ico,
+.icon-list .ico {
+  line-height: 1;
+  filter: saturate(0.65);
+  opacity: 0.9;
 }
 
 .points .ico {
-  font-size: 1.75rem;
-  line-height: 1.15;
+  font-size: 1.15rem;
 }
 
 .points h3 {
@@ -724,7 +731,7 @@ address a:hover {
   max-width: 38em;
 }
 
-/* Eckdaten als schlichte Liste mit Emoji – bewusst keine Pillen, die sind Buttons vorbehalten */
+/* Eckdaten als schlichte Liste mit kleinem Emoji – bewusst keine Pillen, die sind Buttons vorbehalten */
 .icon-list {
   display: grid;
   gap: 10px 36px;
@@ -736,14 +743,13 @@ address a:hover {
 
 .icon-list li {
   display: grid;
-  grid-template-columns: 1.7rem 1fr;
+  grid-template-columns: 1.4rem 1fr;
   column-gap: 10px;
   align-items: baseline;
 }
 
 .icon-list .ico {
-  font-size: 1.2rem;
-  line-height: 1;
+  font-size: 1rem;
 }
 
 .kids .btn--solid,
