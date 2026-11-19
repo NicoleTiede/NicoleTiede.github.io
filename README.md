@@ -19,7 +19,7 @@ docs/                  wird von GitHub Pages veröffentlicht
   assets/
     css/style.css      Gestaltung; Farben stehen als Variablen am Dateianfang
     js/theme.js        Umschalter hell/dunkel
-    img/               Bilder, darunter die Vorschauen vorschau-*.jpg für material.html
+    img/               Bilder, darunter thumb-*.jpg (Vorschauen in material.html) und vorschau-aushang.jpg (Bild für geteilte Links)
   material/            die PDFs und das Foto, die material.html anbietet
 ```
 
@@ -49,7 +49,7 @@ Danach <http://localhost:8000> im Browser öffnen.
 
 Die PDFs in `docs/material/` werden außerhalb dieses Repositorys erzeugt. Eine neue Fassung ersetzt die Datei
 mit demselben Namen, damit Links und QR-Codes gültig bleiben. Danach die Vorschaubilder
-`docs/assets/img/vorschau-*.jpg` erneuern und in `material.html` Größe und Stand prüfen.
+`docs/assets/img/thumb-*.jpg` und `vorschau-aushang.jpg` erneuern und in `material.html` Größe und Stand prüfen.
 
 ## Version
 
