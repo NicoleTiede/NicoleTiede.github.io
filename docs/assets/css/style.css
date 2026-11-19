@@ -996,12 +996,158 @@ address a:hover {
   text-underline-offset: 4px;
 }
 
+/* dezenter Hinweis im Fließtext der Fußzeile: graue Schrift, dünne Unterstreichung */
+.site-footer p a.quiet {
+  color: inherit;
+  text-decoration-thickness: 1px;
+}
+
+.site-footer p a.quiet:hover {
+  color: var(--accent-ink);
+}
+
 /* Versionszeile: Nummer und Zeit werden in docs/index.html von Hand gepflegt */
 .site-footer .version {
   margin-top: 24px;
   font-size: 0.8rem;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
+}
+
+/* ---------- Material: Aushang, Handzettel und Foto zum Herunterladen ---------- */
+
+.material .page-title {
+  margin-top: 12px;
+  font-size: clamp(2.1rem, 7vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.material .page-title .outline {
+  font-weight: 500;
+}
+
+.downloads {
+  display: grid;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.download {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+/* Vorschau: Papier oder Foto auf dem Grund des Kopfbereichs, ganz sichtbar (contain) */
+.preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  aspect-ratio: 4 / 3;
+  min-height: 0; /* sonst wächst der Rahmen mit dem Bild über sein Format hinaus */
+  max-height: 420px;
+  padding: 20px;
+  background: var(--bg-hero);
+}
+
+/* width und height auto mit Höchstmaßen: das Bild behält sein Seitenverhältnis, der Rand liegt eng an */
+.preview img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border: 1px solid var(--line);
+}
+
+.preview--pair img {
+  max-width: calc(50% - 5px);
+}
+
+.preview--photo img {
+  border: 0;
+  border-radius: 12px;
+}
+
+.download-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 24px 28px 28px;
+}
+
+.download-body h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.download-meta {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.download-body > p:not(.download-meta):not(.credit) {
+  margin-top: 14px;
+  color: var(--muted);
+}
+
+.tips {
+  margin: 12px 0 0;
+  padding-left: 1.2em;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.tips li + li {
+  margin-top: 4px;
+}
+
+.credit {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Buttons stehen unten und nebeneinander auf einer Linie, auch bei unterschiedlich langen Texten */
+.download-action {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.download-body > :nth-last-child(2) {
+  margin-bottom: 24px;
+}
+
+@media (min-width: 900px) {
+  .downloads {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .preview {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 560px) and (max-height: 520px) {
+  .preview {
+    max-height: 300px;
+  }
+
+  .material .page-title {
+    margin-top: 8px;
+    font-size: 2.1rem;
+  }
 }
 
 /* ---------- Rechtstexte ---------- */
