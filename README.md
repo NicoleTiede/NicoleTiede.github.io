@@ -11,6 +11,7 @@ docs/                  wird von GitHub Pages veröffentlicht
   index.html           Startseite
   impressum.html
   datenschutz.html
+  material.html        Aushang, Handzettel und Foto zum Herunterladen (verlinkt in der Fußzeile)
   404.html             erscheint bei unbekannten Adressen
   robots.txt
   sitemap.xml
@@ -18,7 +19,8 @@ docs/                  wird von GitHub Pages veröffentlicht
   assets/
     css/style.css      Gestaltung; Farben stehen als Variablen am Dateianfang
     js/theme.js        Umschalter hell/dunkel
-    img/               Bilder
+    img/               Bilder, darunter die Vorschauen vorschau-*.jpg für material.html
+  material/            die PDFs und das Foto, die material.html anbietet
 ```
 
 Alles außerhalb von `docs/` wird nicht veröffentlicht.
@@ -42,6 +44,12 @@ Danach <http://localhost:8000> im Browser öffnen.
 - Ausbildungen und Zertifikate: `docs/index.html`, Abschnitt „Über Nicole“
 - Farben für hell und dunkel: Variablen am Anfang von `docs/assets/css/style.css`
 - Bilder: `docs/assets/img/`. Vor dem Hochladen Standortdaten entfernen und auf höchstens 1200 px Breite verkleinern.
+
+## Aushang und Handzettel
+
+Die PDFs in `docs/material/` werden außerhalb dieses Repositorys erzeugt. Eine neue Fassung ersetzt die Datei
+mit demselben Namen, damit Links und QR-Codes gültig bleiben. Danach die Vorschaubilder
+`docs/assets/img/vorschau-*.jpg` erneuern und in `material.html` Größe und Stand prüfen.
 
 ## Version
 
