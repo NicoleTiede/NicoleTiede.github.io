@@ -19,6 +19,7 @@ docs/                  wird von GitHub Pages veröffentlicht
   assets/
     css/style.css      Gestaltung; Farben stehen als Variablen am Dateianfang
     js/theme.js        Umschalter hell/dunkel
+    js/video.js        lädt das YouTube-Video erst beim Klick; Video und Startsekunde stehen in index.html (data-video, data-start)
     img/               Bilder, darunter thumb-*.jpg (Vorschauen in material.html) und vorschau-aushang.jpg (Bild für geteilte Links)
   material/            die PDFs und das Foto, die material.html anbietet
 ```
