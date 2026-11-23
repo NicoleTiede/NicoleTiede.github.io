@@ -1,0 +1,32 @@
+# Stößt bei Änderungen an einem Pull Request den Lauf seite.yml auf main an.
+# Veröffentlicht wird dort: Die Umgebung github-pages lässt nur main zu, und so läuft nie Code
+# aus einem Pull Request mit Schreibrechten. Beim Zusammenführen genügt der Push auf main.
+name: Vorschau anstoßen
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize, closed]
+
+permissions: {}
+
+jobs:
+  anstossen:
+    # nur Zweige aus diesem Repository, keine Forks
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      !github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api --silent "repos/$GITHUB_REPOSITORY/contents/.github/workflows/seite.yml?ref=main"; then
+            gh workflow run seite.yml --repo "$GITHUB_REPOSITORY" --ref main
+          else
+            echo "::notice::seite.yml liegt noch nicht auf main, deshalb noch keine Vorschau."
+          fi

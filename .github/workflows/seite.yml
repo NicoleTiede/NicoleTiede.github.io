@@ -1,0 +1,110 @@
+# Veröffentlicht die Seite aus main und die Vorschauen aller offenen Pull Requests auf GitHub Pages.
+# Läuft immer auf main: nach jedem Zusammenführen, auf Anstoß durch vorschau.yml oder von Hand.
+name: Seite und Vorschauen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+# Jeder Lauf baut alles neu; wartende Läufe werden vom neuesten ersetzt, laufende nie abgebrochen.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  bauen:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+      pages: read
+    outputs:
+      bereit: ${{ steps.quelle.outputs.bereit }}
+      vorschauen: ${{ steps.bau.outputs.vorschauen }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Pages-Einstellung prüfen
+        id: quelle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          quelle=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .build_type)
+          if [ "$quelle" = workflow ]; then
+            echo "bereit=ja" >> "$GITHUB_OUTPUT"
+          else
+            echo "bereit=nein" >> "$GITHUB_OUTPUT"
+            echo "::notice::Noch nicht aktiv. Unter Settings → Pages als Quelle „GitHub Actions“ wählen, dann diesen Lauf erneut starten."
+          fi
+
+      - name: Seite und Vorschauen zusammenstellen
+        id: bau
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          vorschauen=$(bash .github/scripts/seite-bauen.sh _site)
+          {
+            echo "vorschauen<<ENDE"
+            echo "$vorschauen"
+            echo "ENDE"
+          } >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+
+  veroeffentlichen:
+    needs: bauen
+    if: needs.bauen.outputs.bereit == 'ja'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    outputs:
+      adresse: ${{ steps.pages.outputs.page_url }}
+    steps:
+      - id: pages
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  melden:
+    needs: [bauen, veroeffentlichen]
+    if: needs.bauen.outputs.vorschauen != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Adresse der Vorschau in den Pull Requests hinterlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ADRESSE: ${{ needs.veroeffentlichen.outputs.adresse }}
+          VORSCHAUEN: ${{ needs.bauen.outputs.vorschauen }}
+        run: |
+          set -euo pipefail
+          marke='<!-- vorschau -->'
+          while read -r nr sha; do
+            [ -n "$nr" ] || continue
+            text="$marke
+          **Vorschau:** ${ADRESSE%/}/vorschau/pr-$nr/
+
+          Stand \`${sha:0:7}\`. Die Vorschau ist öffentlich erreichbar, erneuert sich mit jeder Änderung und verschwindet, sobald der Pull Request geschlossen ist. Zeigt sie noch den alten Stand, nach einigen Minuten neu laden."
+            id=$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$nr/comments" \
+              --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- vorschau -->"))) | .id' | sed -n 1p)
+            if [ -n "$id" ]; then
+              gh api --silent --method PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -f body="$text"
+            else
+              gh api --silent --method POST "repos/$GITHUB_REPOSITORY/issues/$nr/comments" -f body="$text"
+            fi
+          done <<< "$VORSCHAUEN"
