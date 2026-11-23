@@ -1006,6 +1006,46 @@ address a:hover {
   color: var(--accent-ink);
 }
 
+/* Logo des Veranstalters: klein, auf dem Handy unter den Verweisen, ab 720 px rechts daneben.
+   Die Datei ist einfarbig schwarz; in der dunklen Darstellung wird sie umgekehrt. */
+.tvm {
+  display: block;
+  width: 112px;
+  margin-bottom: 20px;
+}
+
+.tvm img {
+  width: 100%;
+  opacity: 0.85;
+  transition: opacity 0.15s ease;
+}
+
+.tvm:hover img {
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .tvm img {
+  filter: invert(1);
+}
+
+@media (min-width: 720px) {
+  .site-footer .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 56px;
+  }
+
+  .site-footer .wrap > * {
+    grid-column: 1;
+  }
+
+  .site-footer .wrap > .tvm {
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    margin-bottom: 0;
+  }
+}
+
 /* Versionszeile: Nummer und Zeit werden in docs/index.html von Hand gepflegt */
 .site-footer .version {
   margin-top: 24px;

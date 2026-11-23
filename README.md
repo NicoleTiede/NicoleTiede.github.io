@@ -66,4 +66,6 @@ Die Zeile wird von Hand gepflegt, ganz unten in `docs/index.html`. Bei jeder Än
 Texte und Fotos gehören Nicole Tiede und stehen unter keiner freien Lizenz.
 
 Zumba®, Zumba® Kids und die Zumba-Fitness-Logos sind Marken der Zumba Fitness, LLC und werden unter Lizenz verwendet.
+Das Vereinslogo (`docs/assets/img/tvm-logo.svg`) gehört dem Turnverein Müllheim 1863 e.V. Form und Seitenverhältnis
+bleiben unverändert; in der dunklen Darstellung kehrt das Stylesheet die Farbe um.
 Die Kurse sind ein Angebot des Turnvereins Müllheim 1863 e.V.
