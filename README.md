@@ -27,8 +27,29 @@ Alles außerhalb von `docs/` wird nicht veröffentlicht.
 
 ## Veröffentlichung
 
-GitHub Pages ist auf den Zweig `main` und den Ordner `/docs` eingestellt
-(Settings → Pages → Deploy from a branch). Jede Änderung auf `main` ist nach ein bis zwei Minuten online.
+Die Seite wird mit GitHub Actions veröffentlicht (Settings → Pages → Source: GitHub Actions).
+Jede Änderung auf `main` ist nach ein bis zwei Minuten online.
+
+```
+.github/
+  workflows/seite.yml       baut und veröffentlicht die Seite samt allen Vorschauen, immer auf main
+  workflows/vorschau.yml    stößt seite.yml an, wenn sich ein Pull Request ändert
+  scripts/seite-bauen.sh    stellt zusammen, was veröffentlicht wird
+```
+
+Zurück zum einfachen Weg ohne Vorschauen: Settings → Pages → Source: Deploy from a branch, `main`, `/docs`.
+
+## Vorschau für Pull Requests
+
+Jeder offene Pull Request bekommt eine Vorschau unter `https://nicoletiede.github.io/vorschau/pr-<Nummer>/`.
+Den Link hinterlegt GitHub als Kommentar im Pull Request. Eine gelbe Leiste oben kennzeichnet die Vorschau.
+
+- Die Vorschau zeigt den Stand des Zweigs und erneuert sich mit jeder Änderung.
+- Sie ist öffentlich erreichbar, aber für Suchmaschinen gesperrt, und verschwindet, wenn der Pull Request geschlossen wird.
+- Pull Requests aus Forks bekommen keine Vorschau.
+- Bei einem Konflikt mit `main` startet GitHub den Anstoß nicht. Dann den Konflikt lösen oder den Lauf von Hand
+  starten: Actions → Seite und Vorschauen → Run workflow.
+- Zeigt die Vorschau noch den alten Stand, nach einigen Minuten neu laden.
 
 ## Lokal ansehen
 
