@@ -134,7 +134,16 @@
 
   <section class="section section--line" id="erwartet">
     <div class="wrap split">
-      <img class="photo" src="assets/img/kurs-halle.jpg" width="936" height="572" loading="lazy" alt="Nicole tanzt in der Sporthalle vor der Spiegelwand, im Vordergrund eine Teilnehmerin von hinten">
+      <figure class="video">
+        <div class="video__frame">
+          <!-- YouTube wird erst beim Klick geladen (assets/js/video.js); ohne Skript führt der Link zu YouTube -->
+          <a class="video__start" href="https://www.youtube.com/watch?v=Nve5sEGCsKg&amp;t=15s" rel="noopener" data-video="Nve5sEGCsKg" data-start="15" data-title="Video: TV Müllheim – DAS SIND WIR seit 1863!" aria-label="Video abspielen: Vereinsfilm des TV Müllheim, ab Sekunde 15">
+            <img src="assets/img/kurs-halle.jpg" width="936" height="572" loading="lazy" alt="Nicole tanzt in der Sporthalle vor der Spiegelwand, im Vordergrund eine Teilnehmerin von hinten">
+            <span class="btn btn--solid btn--small video__btn"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 1.2v9.6L11 6z" fill="currentColor"/></svg>Video abspielen</span>
+          </a>
+        </div>
+        <figcaption>Vereinsfilm „TV Müllheim – DAS SIND WIR seit 1863!“, ab Sekunde 15: Gleich danach ist Zumba<sup>®</sup> mit Nicole zu sehen. Beim Abspielen werden Daten an YouTube übertragen, mehr dazu im <a href="datenschutz.html#video">Datenschutz</a>. Oder <a href="https://www.youtube.com/watch?v=Nve5sEGCsKg&amp;t=15s" rel="noopener">auf YouTube ansehen</a>.</figcaption>
+      </figure>
       <div>
         <p class="eyebrow">55 Minuten für dich</p>
         <h2>Was dich <span class="outline">erwartet</span></h2>
@@ -326,9 +335,10 @@
     <p>Die Kurse sind ein Angebot des Turnvereins Müllheim 1863 e.V. Kursleitung: Nicole Tiede. <a class="quiet" href="material.html">Aushang und Handzettel zum Ausdrucken</a></p>
     <p>Zumba<sup>®</sup>, Zumba<sup>®</sup> Kids und die Zumba-Fitness-Logos sind Marken der Zumba Fitness, LLC und werden unter Lizenz verwendet. Mehr über das Programm auf <a href="https://www.zumba.com/de-DE" rel="noopener">zumba.com</a>.</p>
     <!-- Versionszeile: bei jeder Änderung der Seite Nummer und Zeit anpassen (siehe README) -->
-    <p class="version">Version 0.10 · Stand <time datetime="2026-11-23T17:46+01:00">23.11.2026, 17:46 Uhr</time></p>
+    <p class="version">Version 0.11 · Stand <time datetime="2026-11-23T19:31+01:00">23.11.2026, 19:31 Uhr</time></p>
   </div>
 </footer>
 
+<script src="assets/js/video.js"></script>
 </body>
 </html>
